@@ -1,103 +1,46 @@
 #include<bits/stdc++.h>
-
+#define DilligentArch() ios_base::sync_with_stdio(false); cin.tie(0),cout.tie(0);
+#define testcase(t) int t; cin>>t; while(t--)
+#define pb push_back
+typedef long long ll;
 using namespace std;
+#define  ll    long long
+#define  LIM   1000000
+#define  base1 129
+#define  MOD1  1000000009
 
-const int MOD = 1e9 + 7;
-const int BASE = 31;  // You can choose any suitable base for hashing.
+string s;
+ll pow1[LIM+5];
+void calPower(){
+    pow1[0] = 1;
+    for(int i = 1; i < LIM; i++){
+        pow1[i] = (pow1[i-1]*base1)%MOD1;
 
-// Function to check if a substring is a palindrome using hashing
-/*bool isPalindrome(const string& s, int left, int right, vector<int>& hash, vector<int>& base_powers) {
-    int len = right - left + 1;
-    long long hash1 = (hash[right] - (left > 0 ? hash[left - 1] : 0) + MOD) % MOD;
-    long long hash2 = (hash[right] * base_powers[len]) % MOD;
-
-    return hash1 == hash2;
+    }
 }
-*/
-// Function to find the index of the maximum palindromic substring
-pair<int, int> findMaxPalindromeIndex(const string& s) {
-    int n = s.length();
-    if (n == 0) {
-        return make_pair(-1, -1);
+int getHash(){
+    ll hash1 = 0,  revhash1 = 0;
+    int maxi = 1;
+    for(int i = 0; s[i]; i++){
+        hash1 = ((hash1*base1)%MOD1 + (s[i]-'a' + 1))%MOD1;
+
+        revhash1 = (revhash1 + ((s[i]-'a' + 1)*pow1[i])%MOD1)% MOD1;
+
+        if(hash1 == revhash1 ) maxi = max(maxi, i+1);
     }
-
-    vector<int> hash(n, 0);
-    vector<int> base_powers(n, 1);
-    hash[0] = s[0];
-    for (int i = 1; i < n; ++i) {
-        hash[i] = (hash[i - 1] * BASE + s[i]) % MOD;
-        base_powers[i] = (base_powers[i - 1] * BASE) % MOD;
-    }
-    ///for(auto u :hash)cout<<u << " ";
-    ///cout<<endl;
-   ///  for(auto u :base_powers)cout<<u << " ";
-   /// cout<<endl;
-
-    int maxLen = 0;
-    int startIndex = 0;
-
-    for (int i = 0; i < n; i++) {
-        int left = i;
-        int right = i;
-
-        while (left >= 0 && right < n && s[left] == s[right]) {
-            if (right - left + 1 > maxLen) {
-                maxLen = right - left + 1;
-                startIndex = left;
-            }
-            --left;
-            ++right;
-        }
-
-        left = i;
-        right = ++i;
-
-        while (left >= 0 && right < n && s[left] == s[right]) {
-            if (right - left + 1 > maxLen) {
-                maxLen = right - left + 1;
-                startIndex = left;
-            }
-            --left;
-            ++right;
-        }
-    }
-
-    return make_pair(startIndex, startIndex + maxLen - 1);
-}
-
-void solve() {
-    string s;
-
-    cin >> s;
-
-    pair<int, int> result = findMaxPalindromeIndex(s);
-    int startIndex = result.first;
-    int endIndex = result.second;
-
-    if (startIndex == -1) {
-        cout << "No palindrome found." << endl;
-    } else {
-        cout << "Maximum palindromic substring: " << s.substr(startIndex, endIndex - startIndex + 1) << endl;
-        cout << "Start index: " << startIndex << endl;
-        cout << "End index: " << endIndex << endl;
-    }
-
-
+    return maxi;
 }
 int main(){
+    calPower();
+    int t; cin>>t;
+    for(int i = 1; i <= t; i++){
+        cin>>s;
 
+        int maxi = getHash();
+        int matched = maxi;
 
-    int t;
-    cin>>t;
-    for(int i=1;i<=t;i++){
-        cout<< "Case "<<i<< ": ";
-        solve();
+    
+        cout<< "Case "<<i<<": "<<maxi<<endl;
+
     }
-
-
-
-
-
-
-
 }
