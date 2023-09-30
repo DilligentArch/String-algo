@@ -6,14 +6,14 @@ const int MOD = 1e9 + 7;
 const int BASE = 31;  // You can choose any suitable base for hashing.
 
 // Function to check if a substring is a palindrome using hashing
-bool isPalindrome(const string& s, int left, int right, vector<int>& hash, vector<int>& base_powers) {
+/*bool isPalindrome(const string& s, int left, int right, vector<int>& hash, vector<int>& base_powers) {
     int len = right - left + 1;
     long long hash1 = (hash[right] - (left > 0 ? hash[left - 1] : 0) + MOD) % MOD;
     long long hash2 = (hash[right] * base_powers[len]) % MOD;
 
     return hash1 == hash2;
 }
-
+*/
 // Function to find the index of the maximum palindromic substring
 pair<int, int> findMaxPalindromeIndex(const string& s) {
     int n = s.length();
@@ -65,7 +65,7 @@ pair<int, int> findMaxPalindromeIndex(const string& s) {
     return make_pair(startIndex, startIndex + maxLen - 1);
 }
 
-void solve {
+void solve() {
     string s;
 
     cin >> s;
@@ -82,14 +82,14 @@ void solve {
         cout << "End index: " << endIndex << endl;
     }
 
-    return 0;
+
 }
 int main(){
 
 
     int t;
     cin>>t;
-    for(int i=1;i<n;i++){
+    for(int i=1;i<=t;i++){
         cout<< "Case "<<i<< ": ";
         solve();
     }
